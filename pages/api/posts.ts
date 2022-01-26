@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 export type IApiPost = {
   id: string;
   title: string;
+  price: string;
+  currency: string;
   image: string;
 };
 

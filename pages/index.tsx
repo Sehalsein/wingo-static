@@ -35,37 +35,83 @@ const Home: NextPage<IAPIResponseData> = ({ menu, user, fallback }) => {
       </header>
 
       <main className="max-w-7xl mx-auto py-16 px-4">
-        <div className="flex flex-col md:flex-row gap-4 lg:gap-10 ">
-          <div className="bg-slate-300 h-32 w-32 rounded-full relative">
+        <div className="flex flex-1 flex-col gap-2 items-center">
+          <div className="bg-slate-300 h-32 w-32 rounded-full relative overflow-hidden">
             <NextImage
               alt="profile-pic"
               src={user.avatar}
               layout="fill"
-              objectFit="contain"
-              objectPosition="left"
+              objectFit="cover"
+              objectPosition="center"
             />
           </div>
-          <div className="flex flex-1 flex-col gap-2">
-            <span className="font-bold text-primary text-2xl">
-              {user.handle}
-            </span>
-            <div className="flex gap-4">
-              <span>
-                <span className="font-bold ">{user.followers}</span>
-                &nbsp;followers
-              </span>
-              <span>
-                <span className="font-bold ">{user.posts}</span>
-                &nbsp;posts
-              </span>
-            </div>
+          <span className="font-bold text-primary text-2xl">{user.name}</span>
+          <p>Designer, Vlogger, Teacher</p>
+          {/* <div className="flex gap-4">
             <span>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              nemo similique nostrum maiores nisi! Quasi repudiandae, ipsa
-              numquam impedit minus eaque sapiente voluptatem sequi sunt amet
-              molestiae natus ratione? Perferendis.
+              <span className="font-bold ">{user.followers}</span>
+              &nbsp;followers
             </span>
-            <a className="cursor-pointer text-blue-600">https://wingo.in</a>
+            <span>
+              <span className="font-bold ">{user.posts}</span>
+              &nbsp;posts
+            </span>
+          </div> */}
+          <div className="flex gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 hover:text-primary cursor-pointer"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+              />
+            </svg>
+            <svg
+              className="h-6 w-6 hover:text-primary cursor-pointer"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+            >
+              <path d="M 7.5 1 C 3.9160714 1 1 3.9160714 1 7.5 C 1 11.083929 3.9160714 14 7.5 14 C 11.083929 14 14 11.083929 14 7.5 C 14 3.9160714 11.083929 1 7.5 1 z M 7.5 2 C 10.543488 2 13 4.4565116 13 7.5 C 13 10.266333 10.967571 12.541024 8.3125 12.933594 L 8.3125 9.0898438 L 9.8652344 9.0898438 L 10.109375 7.5136719 L 8.3125 7.5136719 L 8.3125 6.6503906 C 8.3125 5.9953906 8.5256719 5.4140625 9.1386719 5.4140625 L 10.123047 5.4140625 L 10.123047 4.0371094 C 9.9500469 4.0141094 9.5845781 3.9628906 8.8925781 3.9628906 C 7.4485781 3.9628906 6.6015625 4.7258906 6.6015625 6.4628906 L 6.6015625 7.5117188 L 5.1171875 7.5117188 L 5.1171875 9.0898438 L 6.6035156 9.0898438 L 6.6035156 12.919922 C 3.9897868 12.492118 2 10.237066 2 7.5 C 2 4.4565116 4.4565116 2 7.5 2 z" />
+            </svg>
+            <svg
+              className="h-6 w-6 hover:text-primary cursor-pointer"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+            >
+              <path d="M 4.773438 1 C 2.695313 1 1 2.695313 1 4.773438 L 1 10.230469 C 1 12.304688 2.695313 14 4.773438 14 L 10.230469 14 C 12.304688 14 14 12.304688 14 10.226563 L 14 4.773438 C 14 2.695313 12.304688 1 10.226563 1 Z M 4.773438 2 L 10.226563 2 C 11.765625 2 13 3.234375 13 4.773438 L 13 10.226563 C 13 11.765625 11.765625 13 10.230469 13 L 4.773438 13 C 3.234375 13 2 11.765625 2 10.230469 L 2 4.773438 C 2 3.234375 3.234375 2 4.773438 2 Z M 11.5 3 C 11.222656 3 11 3.222656 11 3.5 C 11 3.777344 11.222656 4 11.5 4 C 11.777344 4 12 3.777344 12 3.5 C 12 3.222656 11.777344 3 11.5 3 Z M 7.5 4 C 5.574219 4 4 5.574219 4 7.5 C 4 9.425781 5.574219 11 7.5 11 C 9.425781 11 11 9.425781 11 7.5 C 11 5.574219 9.425781 4 7.5 4 Z M 7.5 5 C 8.886719 5 10 6.113281 10 7.5 C 10 8.886719 8.886719 10 7.5 10 C 6.113281 10 5 8.886719 5 7.5 C 5 6.113281 6.113281 5 7.5 5 Z" />
+            </svg>
+            <svg
+              className="h-6 w-6 hover:text-primary cursor-pointer"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+            >
+              <path d="M 3.5 2 C 2.6774686 2 2 2.6774686 2 3.5 L 2 12.5 C 2 13.322531 2.6774686 14 3.5 14 L 12.5 14 C 13.322531 14 14 13.322531 14 12.5 L 14 3.5 C 14 2.6774686 13.322531 2 12.5 2 L 3.5 2 z M 3.5 3 L 12.5 3 C 12.781469 3 13 3.2185314 13 3.5 L 13 12.5 C 13 12.781469 12.781469 13 12.5 13 L 3.5 13 C 3.2185314 13 3 12.781469 3 12.5 L 3 3.5 C 3 3.2185314 3.2185314 3 3.5 3 z M 8 4 L 8 9.5 C 8 10.33 7.33 11 6.5 11 C 5.67 11 5 10.33 5 9.5 C 5 8.67 5.67 8 6.5 8 C 6.68 8 6.84 8.0298438 7 8.0898438 L 7 7.0507812 C 6.84 7.0207812 6.67 7 6.5 7 C 5.12 7 4 8.12 4 9.5 C 4 10.88 5.12 12 6.5 12 C 7.88 12 9 10.88 9 9.5 L 9 6.2109375 C 9.165316 6.3496799 9.2903403 6.5561561 9.4804688 6.6425781 C 10.313461 7.021211 11.25 7 12 7 L 12 6 C 11.25 6 10.436539 5.978789 9.8945312 5.7324219 C 9.3525237 5.4860548 9 5.1166667 9 4 L 8 4 z" />
+            </svg>
+            <svg
+              className="h-6 w-6 hover:text-primary cursor-pointer"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+            >
+              <path d="M 15 3.296875 C 14.476563 3.523438 13.949219 3.691406 13.367188 3.746094 C 13.949219 3.410156 14.417969 2.84375 14.648438 2.226563 C 14.066406 2.5625 13.484375 2.789063 12.84375 2.902344 C 12.257813 2.339844 11.5 2 10.683594 2 C 9.109375 2 7.824219 3.242188 7.824219 4.765625 C 7.824219 4.988281 7.824219 5.214844 7.882813 5.386719 C 4.875 5.386719 2.8125 3.691406 1.414063 2 C 1.121094 2.394531 1.003906 2.902344 1.003906 3.410156 C 1.003906 4.367188 1.53125 5.214844 2.289063 5.722656 C 1.820313 5.667969 1.355469 5.554688 1.003906 5.386719 C 1.003906 5.386719 1.003906 5.386719 1.003906 5.441406 C 1.003906 6.796875 1.996094 7.921875 3.28125 8.148438 C 3.046875 8.203125 2.8125 8.261719 2.519531 8.261719 C 2.347656 8.261719 2.171875 8.261719 1.996094 8.207031 C 2.347656 9.335938 3.976563 10.632813 5.257813 10.632813 C 4.265625 11.363281 3.34375 12 1.5 12 C 1.265625 12 1.453125 12 1 12 C 2.28125 12.789063 3.800781 13 5.375 13 C 10.683594 13 13.542969 8.769531 13.542969 5.101563 C 13.542969 4.988281 13.542969 4.878906 13.542969 4.765625 C 14.125 4.367188 14.59375 3.863281 15 3.296875" />
+            </svg>
+            <svg
+              className="h-6 w-6 hover:text-primary cursor-pointer"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+            >
+              <path d="M 2.488281 3.011719 C 1.664063 3.011719 0.988281 3.6875 0.988281 4.511719 L 0.988281 11.511719 C 0.988281 12.335938 1.664063 13.011719 2.488281 13.011719 L 13.488281 13.011719 C 14.308594 13.011719 14.988281 12.335938 14.988281 11.511719 L 14.988281 4.511719 C 14.988281 3.6875 14.3125 3.011719 13.488281 3.011719 Z M 2.488281 4.011719 L 13.488281 4.011719 C 13.769531 4.011719 13.988281 4.230469 13.988281 4.511719 L 13.988281 11.511719 C 13.988281 11.792969 13.769531 12.011719 13.488281 12.011719 L 2.488281 12.011719 C 2.207031 12.011719 1.988281 11.792969 1.988281 11.511719 L 1.988281 4.511719 C 1.988281 4.230469 2.207031 4.011719 2.488281 4.011719 Z M 6 4.992188 L 6 11.011719 L 11 8 Z M 7 6.757813 L 9.0625 8 L 7 9.242188 Z" />
+            </svg>
           </div>
         </div>
 
@@ -81,30 +127,39 @@ const Home: NextPage<IAPIResponseData> = ({ menu, user, fallback }) => {
             </div>
           )}
           {!loading && data && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
-              {data.map(({ title, id, image }) => (
-                <div
-                  key={id}
-                  className="h-64 bg-slate-300 rounded-md group relative overflow-hidden"
-                >
-                  <NextImage
-                    alt={title}
-                    src={image}
-                    className="object-cover object-center h-64 w-full overflow-hidden rounded-md"
-                    layout="fill"
-                  />
-                  <div className="opacity-0 group-hover:opacity-100 duration-300 absolute left-0 top-0 right-0 z-10 h-64 flex justify-center items-center text-xl bg-black/50 text-black font-semibold">
-                    <div className="flex gap-2 items-center cursor-pointer">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {data.map(({ title, id, image, currency, price }) => (
+                <div key={id} className="flex flex-col gap-2">
+                  <div className="h-80 bg-slate-300 rounded-md relative overflow-hidden cursor-pointer">
+                    <div className="absolute z-10 right-2 top-2 p-1 rounded-full backdrop-blur-sm bg-black/30">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 text-white "
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
+                        className="h-6 w-6 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                        />
                       </svg>
-                      <span className="text-white">Shop</span>
                     </div>
+                    <NextImage
+                      alt={title}
+                      src={image}
+                      className="object-cover object-center h-64 w-full overflow-hidden rounded-md"
+                      layout="fill"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-bold ">{title}</span>
+                    <span className="text-gray-400 font-medium">
+                      {currency}
+                      {price}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -136,56 +191,70 @@ export const getStaticProps: GetStaticProps<IAPIResponseData> = async (
       },
     ],
     user: {
-      name: "Sehal Sein",
-      handle: "@hello",
+      name: "Roger Wingo",
+      handle: "rogerwingo",
       posts: "2",
       followers: "100",
       avatar:
-        "data:image/png;base64,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",
+        "https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
     },
   };
   const posts = [
     {
       id: "1",
-      title: "POST 1",
+      title: "Item 1",
+      price: "12.00",
+      currency: "$",
       image:
-        "https://images.unsplash.com/photo-1593642633279-1796119d5482?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1699&q=80",
     },
     {
       id: "2",
-      title: "POST 2",
+      title: "Item 2",
+      price: "12.00",
+      currency: "$",
       image:
-        "https://images.unsplash.com/photo-1641724370938-9bb229a69c47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+        "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
     },
     {
       id: "3",
-      title: "POST 3",
+      title: "Item 3",
+      price: "12.00",
+      currency: "$",
       image:
-        "https://images.unsplash.com/photo-1641671032779-002c9f37c038?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+        "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80",
     },
     {
       id: "4",
-      title: "POST 4",
+      title: "Item 4",
+      price: "12.00",
+      currency: "$",
       image:
-        "https://images.unsplash.com/photo-1641663322175-0e2344656622?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+        "https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
     },
     {
       id: "5",
-      title: "POST 5",
+      title: "Item 5",
+      price: "12.00",
+      currency: "$",
       image:
-        "https://images.unsplash.com/photo-1641611605871-ae20d4514b74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+        "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
     },
     {
       id: "6",
-      title: "POST 6",
+      title: "Item 6",
+      price: "12.00",
+      currency: "$",
       image:
-        "https://images.unsplash.com/photo-1641599988873-88139e16581b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80",
+        "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
     },
     {
       id: "7",
-      title: "POST 7",
+      title: "Item 7",
+      price: "12.00",
+      currency: "$",
       image:
-        "https://images.unsplash.com/photo-1641621393945-881745ee9978?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+        "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1028&q=80",
     },
   ];
 
