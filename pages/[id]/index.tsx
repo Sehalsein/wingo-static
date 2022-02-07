@@ -2,7 +2,7 @@ import React from "react";
 import NextImage from "next/image";
 import logo from "../../public/logo.png";
 import { usePostDetail } from "../../src/api/post";
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { IAPIResponseData } from "../api/users";
 import { useRouter } from "next/router";
 
@@ -154,7 +154,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = {
     menu: [
       {
@@ -238,16 +238,16 @@ export async function getStaticProps({ params }) {
     },
   ];
 
-  const post = posts.find(({ id }) => params.id === id);
+  const post = posts.find(({ id }) => (params as any).id === id);
   return {
     props: {
       ...res,
       fallback: {
-        [`/posts/${params.id}`]: post,
+        [`/posts/${(params as any).id}`]: post,
       },
     },
     revalidate: 10,
   };
-}
+};
 
 export default DetailPage;
