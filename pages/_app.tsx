@@ -1,10 +1,19 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import fetcher from "../src/lib/swr";
 import { SWRConfig } from "swr";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
+import fetcher from "@/src/lib/swr";
+import { NextPageWithLayout } from "@/src/types/app/next";
+import { ReactElement } from "react";
+
+type MyAppProps = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: MyAppProps) {
+  const getLayout = Component.getLayout || ((page: ReactElement) => page);
+
+  return getLayout(
     <SWRConfig
       value={{
         revalidateOnFocus: false,
