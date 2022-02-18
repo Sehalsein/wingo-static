@@ -16,7 +16,7 @@ type UserFireStoreDoc = {
   id: string;
   name: string;
   bio: string;
-  avatar: string;
+  avatar?: string;
   social: {
     instagram: string;
     [key: string]: string;
@@ -30,6 +30,7 @@ type StoreFireStoreDoc = {
   price: string;
   image: string;
   currency: string;
+  productLink: string;
 };
 
 const UserProfilePage: NextPageWithLayout = () => {
@@ -41,10 +42,11 @@ const UserProfilePage: NextPageWithLayout = () => {
     const { id } = router.query;
 
     if (id) {
-      const userRef = doc(db, "user", id.toString());
-      const userStoreRef = collection(db, "user", id.toString(), "store");
+      console.log("id", id);
+      const publicStoreRef = doc(db, "public", id.toString());
+      const userStoreRef = collection(db, "public", id.toString(), "store");
 
-      getDoc(userRef).then((docSnap) => {
+      getDoc(publicStoreRef).then((docSnap) => {
         console.log("data", docSnap.data());
         if (docSnap.exists()) {
           setUserDetail({
@@ -71,29 +73,31 @@ const UserProfilePage: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="flex flex-1 flex-col gap-2 items-center">
-        <div className="bg-slate-300 h-24 w-24 md:h-32 md:w-32 rounded-full relative overflow-hidden">
-          <NextImage
-            alt="profile-pic"
-            src={userDetail.avatar}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
-          />
+      <div className="flex flex-1 flex-col items-center gap-2">
+        <div className="relative h-24 w-24 overflow-hidden rounded-full bg-slate-300 md:h-32 md:w-32">
+          {userDetail.avatar && (
+            <NextImage
+              alt="profile-pic"
+              src={userDetail.avatar}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+            />
+          )}
         </div>
         <div className="flex flex-col items-center">
-          <span className="font-bold text-primary text-2xl">
+          <span className="text-primary text-2xl font-bold">
             {userDetail.name}
           </span>
           <p>{userDetail.bio}</p>
         </div>
 
-        <div className="flex gap-6 mt-4">
+        <div className="mt-4 flex gap-6">
           {userDetail.social.website && (
             <NextLink href={userDetail.social.website}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 hover:text-primary cursor-pointer"
+                className="hover:text-primary h-8 w-8 cursor-pointer"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -110,7 +114,7 @@ const UserProfilePage: NextPageWithLayout = () => {
           {userDetail.social.facebook && (
             <NextLink href={userDetail.social.facebook}>
               <svg
-                className="h-8 w-8 hover:text-primary cursor-pointer"
+                className="hover:text-primary h-8 w-8 cursor-pointer"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -122,7 +126,7 @@ const UserProfilePage: NextPageWithLayout = () => {
           {userDetail.social.instagram && (
             <NextLink href={userDetail.social.instagram}>
               <svg
-                className="h-8 w-8 hover:text-primary cursor-pointer"
+                className="hover:text-primary h-8 w-8 cursor-pointer"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -134,7 +138,7 @@ const UserProfilePage: NextPageWithLayout = () => {
           {userDetail.social.tiktok && (
             <NextLink href={userDetail.social.tiktok}>
               <svg
-                className="h-8 w-8 hover:text-primary cursor-pointer"
+                className="hover:text-primary h-8 w-8 cursor-pointer"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -146,7 +150,7 @@ const UserProfilePage: NextPageWithLayout = () => {
           {userDetail.social.twitter && (
             <NextLink href={userDetail.social.twitter}>
               <svg
-                className="h-8 w-8 hover:text-primary cursor-pointer"
+                className="hover:text-primary h-8 w-8 cursor-pointer"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -158,7 +162,7 @@ const UserProfilePage: NextPageWithLayout = () => {
           {userDetail.social.youtube && (
             <NextLink href={userDetail.social.youtube}>
               <svg
-                className="h-8 w-8 hover:text-primary cursor-pointer"
+                className="hover:text-primary h-8 w-8 cursor-pointer"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -210,18 +214,21 @@ const UserProfilePage: NextPageWithLayout = () => {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {storeList.map(({ name, id, image, currency, price }) => (
-                  <StoreItemCard
-                    key={id}
-                    name={name}
-                    id={id}
-                    image={image}
-                    currency={currency}
-                    price={price}
-                    userId={userDetail.id}
-                  />
-                ))}
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
+                {storeList.map(
+                  ({ name, id, image, currency, price, productLink }) => (
+                    <StoreItemCard
+                      key={id}
+                      name={name}
+                      id={id}
+                      image={image}
+                      currency={currency}
+                      price={price}
+                      userId={userDetail.id}
+                      productLink={productLink}
+                    />
+                  )
+                )}
               </div>
             </Transition>
             {/* </>

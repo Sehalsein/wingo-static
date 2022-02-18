@@ -25,6 +25,7 @@ type StoreFireStoreDoc = {
   price: string;
   image: string;
   currency: string;
+  productLink: string;
 };
 
 const StoreItemDetailPage: NextPageWithLayout = () => {
@@ -39,7 +40,7 @@ const StoreItemDetailPage: NextPageWithLayout = () => {
       //   const userRef = doc(db, "user", id.toString());
       const storeItemRef = doc(
         db,
-        "user",
+        "public",
         id.toString(),
         "store",
         sid.toString()
@@ -75,15 +76,17 @@ const StoreItemDetailPage: NextPageWithLayout = () => {
     <>
       <div
         key={itemDetail.id}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12"
+        className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-12"
       >
-        <div className="h-96 bg-slate-300 rounded-md relative overflow-hidden cursor-pointer col-span-1 sm:col-span-2">
-          <NextImage
-            alt={itemDetail.name}
-            src={itemDetail.image}
-            className="object-cover object-center h-96 w-full overflow-hidden rounded-md"
-            layout="fill"
-          />
+        <div className="relative col-span-1 h-96 cursor-pointer overflow-hidden rounded-md bg-slate-300 sm:col-span-2">
+          {itemDetail.image && (
+            <NextImage
+              alt={itemDetail.name}
+              src={itemDetail.image}
+              className="h-96 w-full overflow-hidden rounded-md object-cover object-center"
+              layout="fill"
+            />
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -92,10 +95,17 @@ const StoreItemDetailPage: NextPageWithLayout = () => {
             {itemDetail.currency}
             {itemDetail.price}
           </span>
+          {itemDetail.productLink && (
+            <button
+              className="bg-primary mt-4 rounded-xl py-2 font-bold text-white"
+              onClick={() => {
+                router.push(itemDetail.productLink);
+              }}
+            >
+              Buy Now
+            </button>
+          )}
           <p className="">{itemDetail.description}</p>
-          <button className="font-bold mt-4 bg-primary py-2 text-white rounded-xl">
-            Buy Now
-          </button>
         </div>
       </div>
     </>
