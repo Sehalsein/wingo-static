@@ -42,12 +42,10 @@ const UserProfilePage: NextPageWithLayout = () => {
     const { id } = router.query;
 
     if (id) {
-      console.log("id", id);
       const publicStoreRef = doc(db, "public", id.toString());
       const userStoreRef = collection(db, "public", id.toString(), "store");
 
       getDoc(publicStoreRef).then((docSnap) => {
-        console.log("data", docSnap.data());
         if (docSnap.exists()) {
           setUserDetail({
             ...(docSnap.data() as UserFireStoreDoc),
@@ -59,7 +57,6 @@ const UserProfilePage: NextPageWithLayout = () => {
       getDocs(userStoreRef).then((docSnap) => {
         const storeItem: StoreFireStoreDoc[] = [];
         docSnap.forEach((res) => {
-          console.log("item");
           storeItem.push({ ...(res.data() as StoreFireStoreDoc), id: res.id });
         });
         setStoreList(storeItem);

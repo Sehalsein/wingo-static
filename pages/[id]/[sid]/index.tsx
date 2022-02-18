@@ -46,18 +46,7 @@ const StoreItemDetailPage: NextPageWithLayout = () => {
         sid.toString()
       );
 
-      //   getDoc(userRef).then((docSnap) => {
-      //     console.log("data", docSnap.data());
-      //     if (docSnap.exists()) {
-      //       setUserDetail({
-      //         ...(docSnap.data() as UserFireStoreDoc),
-      //         id: docSnap.id,
-      //       });
-      //     }
-      //   });
-
       getDoc(storeItemRef).then((docSnap) => {
-        console.log("store", docSnap.data());
         if (docSnap.exists()) {
           setItemDetail({
             ...(docSnap.data() as StoreFireStoreDoc),
