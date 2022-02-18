@@ -7,7 +7,7 @@ const AppLayout: React.FC = ({ children }) => {
     <>
       <header className="bg-primary flex h-14 items-center text-white md:h-20">
         <div className="mx-auto flex w-full max-w-7xl justify-between gap-4 px-4">
-          <div className="relative h-10 w-1/6">
+          <div className="relative h-6 w-1/6 md:h-10">
             <NextImage
               src={logo}
               alt="logo"
