@@ -82,7 +82,7 @@ const UserProfilePage: NextPageWithLayout = () => {
             />
           )}
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center text-center">
           <span className="text-primary text-2xl font-bold">
             {userDetail.name}
           </span>

@@ -94,7 +94,7 @@ const StoreItemDetailPage: NextPageWithLayout = () => {
             <NextImage
               alt={itemDetail.name}
               src={itemDetail.image}
-              className="h-96 w-full overflow-hidden rounded-md object-cover object-center"
+              className="h-96 w-full overflow-hidden rounded-md object-contain object-center"
               layout="fill"
             />
           )}
