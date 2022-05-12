@@ -1,6 +1,6 @@
-import React from "react";
-import NextImage from "next/image";
 import logo from "@/public/logo-white.png";
+import NextImage from "next/image";
+import React from "react";
 
 const AppLayout: React.FC = ({ children }) => {
   return (
@@ -18,7 +18,7 @@ const AppLayout: React.FC = ({ children }) => {
           </div>
         </div>
       </header> */}
-      <main className="mx-auto max-w-7xl flex-grow py-8 px-4 md:py-16">
+      <main className="mx-auto w-full max-w-7xl flex-grow py-8 px-4 md:py-16">
         {children}
       </main>
       <footer className="w-full flex-initial py-10 text-center">

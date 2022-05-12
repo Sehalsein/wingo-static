@@ -1,15 +1,15 @@
-import React from "react";
-import NextLink from "next/link";
 import NextImage from "next/image";
+import NextLink from "next/link";
+import React from "react";
 
 type StoreItemCardProps = {
   id: string;
   name: string;
-  price: string;
-  image: string;
+  price?: number;
+  image?: string;
   currency: string;
   userId: string;
-  productLink: string;
+  productLink?: string;
 };
 
 const StoreItemCard: React.FC<StoreItemCardProps> = ({
@@ -17,13 +17,13 @@ const StoreItemCard: React.FC<StoreItemCardProps> = ({
   id,
   image,
   currency,
-  price,
+  price = 0,
   userId,
-  productLink,
+  productLink = "",
 }) => {
   return (
     <div className="flex flex-col gap-2">
-      <NextLink href={`/${userId}/${id}`}>
+      <NextLink href={`${productLink}`}>
         <div className="relative h-56 cursor-pointer overflow-hidden rounded-md bg-slate-300">
           {productLink && (
             <NextLink href={productLink}>

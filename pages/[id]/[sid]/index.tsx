@@ -1,64 +1,26 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import NextImage from "next/image";
-import { useRouter } from "next/router";
-import { doc, getDoc } from "firebase/firestore";
-
-import { db } from "@/src/lib/firebase";
+import { useCustomerProductDetail } from "@/src/api/customer";
 import AppLayout from "@/src/components/layout/AppLayout";
 import { NextPageWithLayout } from "@/src/types/app/next";
-
-// type UserFireStoreDoc = {
-//   id: string;
-//   name: string;
-//   bio: string;
-//   avatar: string;
-//   social: {
-//     instagram: string;
-//     [key: string]: string;
-//   };
-// };
-
-type StoreFireStoreDoc = {
-  id: string;
-  description: string;
-  name: string;
-  price: string;
-  image: string;
-  currency: string;
-  productLink: string;
-};
+import ErrorPage from "next/error";
+import NextImage from "next/image";
+import { useRouter } from "next/router";
+import { ReactElement } from "react";
 
 const StoreItemDetailPage: NextPageWithLayout = () => {
   const router = useRouter();
-  //   const [userDetail, setUserDetail] = useState<UserFireStoreDoc | null>(null);
-  const [itemDetail, setItemDetail] = useState<StoreFireStoreDoc | null>(null);
+  const { id, sid } = router.query;
 
-  useEffect(() => {
-    const { id, sid } = router.query;
+  const { data, loading } = useCustomerProductDetail(
+    id as string,
+    sid as string
+  );
 
-    if (id && sid) {
-      //   const userRef = doc(db, "user", id.toString());
-      const storeItemRef = doc(
-        db,
-        "public",
-        id.toString(),
-        "store",
-        sid.toString()
-      );
-
-      getDoc(storeItemRef).then((docSnap) => {
-        if (docSnap.exists()) {
-          setItemDetail({
-            ...(docSnap.data() as StoreFireStoreDoc),
-            id: docSnap.id,
-          });
-        }
-      });
-    }
-  }, [router]);
-
-  if (!itemDetail) {
+  if (loading) {
     return <h1>Loading</h1>;
+  }
+
+  if (!data || !data.result) {
+    return <ErrorPage statusCode={404} />;
   }
 
   return (
@@ -86,14 +48,14 @@ const StoreItemDetailPage: NextPageWithLayout = () => {
         <span className="text-xl">Product List</span>
       </div>
       <div
-        key={itemDetail.id}
+        key={data.result.id}
         className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-12"
       >
         <div className="relative col-span-1 h-96 cursor-pointer overflow-hidden rounded-md bg-slate-300 sm:col-span-2">
-          {itemDetail.image && (
+          {data.result.image && (
             <NextImage
-              alt={itemDetail.name}
-              src={itemDetail.image}
+              alt={data.result.name}
+              src={data.result.image}
               className="h-96 w-full overflow-hidden rounded-md object-contain object-center"
               layout="fill"
             />
@@ -101,22 +63,23 @@ const StoreItemDetailPage: NextPageWithLayout = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-lg">{itemDetail.name}</span>
+          <span className="text-lg">{data.result.name}</span>
           <span className="font-bold">
-            {itemDetail.currency}
-            {itemDetail.price}
+            {data.result.currency}
+            {data.result.price}
           </span>
-          {itemDetail.productLink && (
+          {data.result.productLink && (
             <button
-              className="bg-primary mt-4 rounded-xl py-2 font-bold text-white"
+              className="mt-4 rounded-xl bg-primary py-2 font-bold text-white"
               onClick={() => {
-                router.push(itemDetail.productLink);
+                if (data.result.productLink)
+                  router.push(data.result.productLink);
               }}
             >
               Buy Now
             </button>
           )}
-          <p className="">{itemDetail.description}</p>
+          <p className="">{data.result.description}</p>
         </div>
       </div>
     </>
